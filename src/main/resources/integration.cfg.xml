@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+       http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+
+    <int:gateway id="gateway" default-request-channel="channelDataIntegration"
+                 service-interface="online.grisk.poseidon.integration.gateway.GatewayService"/>
+    <int:channel id="channelDataIntegration"/>
+
+    <int:service-activator input-channel="channelDataIntegration" output-channel="channelSplitter"
+                           ref="dataIntegrationServiceActivator"/>
+
+    <int:channel id="channelSplitter"/>
+
+    <int:splitter input-channel="channelSplitter" output-channel="channelAsync"
+                  apply-sequence="true" ref="indicatorsSplitter"/>
+
+    <int:channel id="channelAsync">
+        <int:dispatcher task-executor="executorIndicators"/>
+    </int:channel>
+
+    <task:executor id="executorIndicators" pool-size="20" queue-capacity="100" rejection-policy="CALLER_RUNS"/>
+
+    <int:service-activator input-channel="channelAsync" output-channel="channelAggregator"
+                           ref="scoreServiceActivator"/>
+
+    <int:service-activator input-channel="channelAsync" output-channel="channelAggregator"
+                           ref="ratiosServiceActivator"/>
+
+    <int:service-activator input-channel="channelAsync" output-channel="channelAggregator"
+                           ref="matrizServiceActivator"/>
+
+    <int:channel id="channelAggregator"/>
+
+    <int:aggregator input-channel="channelAggregator" ref="indicatorsAggregator" method="processMessageGroup"/>
+
+</beans>
