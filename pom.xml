@@ -11,8 +11,8 @@
     <groupId>online.grisk</groupId>
     <artifactId>poseidon</artifactId>
     <version>0.0.1.alpha</version>
-    <name>Poseidon - Score API Restful</name>
-    <description>Score API Restful - GRisk Project</description>
+    <name>Poseidon - Simulador Score API Restful</name>
+    <description>Simulador Score API Restful - GRisk Project</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -40,9 +40,7 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
-            <optional>true</optional>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

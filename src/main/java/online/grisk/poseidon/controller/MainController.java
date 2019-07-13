@@ -17,7 +17,7 @@ public class MainController {
     @Autowired
     GatewayService gatewayService;
 
-    @PostMapping(value = "/v1/rest/api/consumer")
+    @PostMapping(value = "/v1/rest/api/score")
     public Map<String, Object> report(@RequestBody Map payload) {
         HashMap<String, Object> response = new HashMap<>();
         response.put("uuid", UUID.randomUUID());

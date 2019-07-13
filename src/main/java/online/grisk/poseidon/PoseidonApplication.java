@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ImportResource;
 
 @SpringBootApplication
-@ImportResource("integration.cfg.xml")
+@ImportResource("classpath:integration.cfg.xml")
 public class PoseidonApplication {
     public static void main(String[] args) {
         SpringApplication.run(PoseidonApplication.class, args);
