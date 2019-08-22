@@ -23,7 +23,7 @@ public class ScoreController {
 	public ResponseEntity<?> getScore(@RequestBody JsonNode payload) throws IOException {
 		JsonNode values = payload.get("dataintegration").get("values");
 		JsonNode ratiosConfiguration = payload.get("riskScore").get("configuration");
-		JsonNode ratiosCollections = ratiosConfiguration.get("scoreRangeCollection");
+		JsonNode ratiosCollections = ratiosConfiguration.get("riskScoreRangeCollection");
 		String nombreVariable = ratiosConfiguration.get("variable").asText();
 		
 		ObjectMapper mapper = new ObjectMapper();
